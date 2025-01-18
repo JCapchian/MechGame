@@ -1,5 +1,8 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.UIElements;
 
 public class MechController : BaseController
 {
@@ -10,6 +13,9 @@ public class MechController : BaseController
     public InteractionHandler InteractionHandler { get => interactionHandler; set => interactionHandler = value; }
     #endregion
 
+    [SerializeField] float exitDetectionRadius;
+    [SerializeField] float exitDetectionDistance;
+
     bool isActivate;
     public bool IsActivate { get => isActivate; }
 
@@ -19,20 +25,26 @@ public class MechController : BaseController
 
         mechMovementHandler.Initialize(playerController);
         interactionHandler.Initialize(playerController);
+
+        playerController.InputManager.onExitMech += ExitMech;
     }
 
-    #region Turn On\Off
-
-    public void Activate()
+    public override void EnableControls()
     {
-        isActivate = true;
-    }
-    public void Deactivate()
-    {
-        isActivate = true;
+        base.EnableControls();
+
+        playerController.InputManager.DisableBoyControls();
+        playerController.InputManager.EnableMechControls();
     }
 
-    #endregion
+    public void ExitMech()
+    {
+        if (ObstacleInFront())
+            return;
+
+        playerController.ChangeToBoy();
+        playerController.MoveBoy(new Vector3(transform.position.x, transform.position.y, transform.position.z + exitDetectionDistance));
+    }
 
     public override void ControllerUpdate()
     {
@@ -47,5 +59,21 @@ public class MechController : BaseController
     public override void ControllerLateUpdate()
     {
         base.ControllerLateUpdate();
+    }
+
+    public bool ObstacleInFront()
+    {
+        // Ray ray = new Ray(transform.position, transform.forward);
+        Collider[] colliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, exitDetectionDistance), exitDetectionRadius);
+
+        if (colliders.Any())
+            return true;
+        else
+            return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position + new Vector3(0, 0, exitDetectionDistance), exitDetectionRadius);
     }
 }

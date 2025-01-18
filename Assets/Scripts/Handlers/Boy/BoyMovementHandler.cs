@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 
 public class BoyMovementHandler : BaseStateMachine<MovementStates>
 {
-    PlayerController playerController;
+    BoyController boyController;
     InputManager inputManager;
 
     #region Internal Variables
@@ -15,6 +15,7 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
     public Vector2 CurrentMovementAxi { get => currentMovementAxi; }
     Vector3 currentMousePosition;
     public Vector3 CurrentMouseAxi { get => currentMovementAxi; }
+    Vector3 mouseWorldPosition;
 
     bool isGrounded;
     public bool IsGrounded { get => isGrounded; }
@@ -67,13 +68,13 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
     [SerializeField] float climbExitJumpForce;
 
 
-    public void Initialize(PlayerController _playerController)
+    public void Initialize(PlayerController _playerController, BoyController _boyController)
     {
-        playerController = _playerController;
-        inputManager = playerController.InputManager;
+        boyController = _boyController;
+        inputManager = _playerController.InputManager;
 
         inputManager.onMovement += GetMovementAxis;
-        inputManager.onMouseMovement += GetMouseAxis;
+        //inputManager.onMouseMovement += GetMouseAxis;
         inputManager.onJump += TryJump;
         inputManager.onSprint += TryRunning;
         inputManager.onDash += TryDashing;
@@ -100,20 +101,19 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
         currentState.OnFixedUpdate(this);
         GroundCheck();
         ClimbSurfaceCheck();
-        //RotatePlayerModel();
+        RotatePlayerModel();
+        GetMouseAxis();
     }
 
     public void GetMovementAxis(Vector2 _currentMovementAxi)
     {
         currentMovementAxi = _currentMovementAxi;
     }
-    public void GetMouseAxis(Vector2 _currentMouseAxi)
+    public void GetMouseAxis()
     {
-        //Debug.Log(_currentMouseAxi);
-
-        currentMousePosition = Camera.main.ScreenToWorldPoint(_currentMouseAxi);
-        currentMousePosition.z = 0;
-        //currentMouseAxi = _currentMouseAxi;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit))
+            mouseWorldPosition = raycastHit.point;
     }
 
     public void RotatePlayerModel()
@@ -121,39 +121,10 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
         if (!isGrounded)
             return;
 
-        // Vector3 lookAtPos = currentMouseAxi;
-        // lookAtPos.z = transform.position.z - Camera.main.transform.position.z;
-        // transform.up = lookAtPos - transform.position;
+        var direction = mouseWorldPosition - boyController.CharacterModel.transform.position;
 
-        //var lookAtPos = currentMouseAxi - rigid.position;
-
-
-        // float angle = Mathf.Atan2(
-        //     playerController.transform.position.y - currentMousePosition.y,
-        //     playerController.transform.position.x - currentMousePosition.x)
-        //     * Mathf.Rad2Deg;
-        // Debug.Log(angle);
-        // playerController.transform.Rotate(0, angle, 0);
-
-        if (currentMovementAxi.magnitude != 0)
-        {
-            var relative = (playerController.transform.position + new Vector3(currentMovementAxi.x, 0, currentMovementAxi.y)) - playerController.transform.position;
-            var rot = Quaternion.LookRotation(relative, Vector3.up);
-
-
-            playerController.transform.rotation = Quaternion.RotateTowards(playerController.transform.rotation, rot, 5f * Time.deltaTime);
-
-        }
-        //playerController.transform.Rotate(new Vector3(0, angle, 0) * Time.deltaTime, Space.World);
-
-        //rigid.rotation = angle;
-        //rigid.MoveRotation(angle);
-
-        // playerController.transform.LookAt(currentMouseAxi);
-        //playerController.transform.Rotate(0, currentMouseAxi.y, 0);
-
-        // var rot = Quaternion.LookRotation(currentMouseAxi, Vector3.up);
-        // transform.rotation = Quaternion.RotateTowards(playerController.transform.rotation, rot, movementSpeed * Time.deltaTime);
+        direction.y = 0;
+        boyController.CharacterModel.transform.forward = direction;
     }
 
     #region Velocity Function

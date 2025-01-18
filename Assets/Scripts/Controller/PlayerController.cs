@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -18,8 +19,12 @@ public class PlayerController : MonoBehaviour
     public GuiHandler GuiHandler { get => guiHandler; }
     #endregion
 
+    #region Controllers
+    [SerializeField] BaseController boyController;
+    [SerializeField] BaseController mechController;
     [SerializeField] BaseController characterController;
     public BaseController CharacterController { get => characterController; set => characterController = value; }
+    #endregion
 
     private void Awake()
     {
@@ -34,11 +39,14 @@ public class PlayerController : MonoBehaviour
 
         CharacterController.Initialize(this);
     }
+    private void Start()
+    {
+        characterController.EnableControls();
+    }
 
     private void LateUpdate()
     {
         cameraHandler.Handle();
-
         characterController.ControllerLateUpdate();
     }
 
@@ -50,5 +58,37 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         characterController.ControllerUpdate();
+    }
+
+    public void ChangeToBoy()
+    {
+        if (characterController == boyController)
+            return;
+
+        cameraHandler.ChangeTarget(boyController.transform);
+        characterController.Disable();
+        characterController = boyController;
+
+
+        characterController.Initialize(this);
+        characterController.EnableControls();
+    }
+
+    public void MoveBoy(Vector3 vector3)
+    {
+        characterController.transform.position = vector3;
+    }
+    public void ChangeToMech()
+    {
+        if (characterController == mechController)
+            return;
+
+        cameraHandler.ChangeTarget(mechController.transform);
+        characterController.Disable();
+        characterController = mechController;
+
+
+        characterController.Initialize(this);
+        characterController.EnableControls();
     }
 }

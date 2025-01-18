@@ -26,29 +26,11 @@ public class InteractionHandler : MonoBehaviour
             interactionAction = null;
             return;
         }
-
         var objectToInteract = interactable[1].GetComponent<InteractionAction>();
-        Debug.Log(objectToInteract.gameObject.name);
 
         if (interactionAction != objectToInteract)
             if (objectToInteract.CharacterType == characterType)
                 interactionAction = objectToInteract;
-
-        // if (interactable.Any())
-        // {
-        //     var objectToInteract = interactable[0].GetComponent<InteractionAction>();
-        //     if (ownInteractionAction == objectToInteract)
-        //         if (interactable[1] != null)
-        //             objectToInteract = interactable[1].GetComponent<InteractionAction>();
-
-        //     if (objectToInteract != interactionAction)
-        //         if (objectToInteract.CharacterType == characterType)
-        //             interactionAction = objectToInteract;
-        // }
-        // else
-        // {
-        //     interactionAction = null;
-        // }
     }
 
     public void Interact()
