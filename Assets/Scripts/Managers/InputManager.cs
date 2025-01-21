@@ -9,8 +9,6 @@ public class InputManager : MonoBehaviour
     #region Axis Events
     public delegate void OnMovement(Vector2 axis);
     public OnMovement onMovement;
-    public delegate void OnMouseMovement(Vector2 axis);
-    public OnMouseMovement onMouseMovement;
     public delegate void OnInteraction();
     public OnInteraction onInteraction;
     #endregion
@@ -23,6 +21,8 @@ public class InputManager : MonoBehaviour
     public OnEnterMech onEnterMech;
     public delegate void OnJump();
     public OnJump onJump;
+    public delegate void OnAttack();
+    public OnAttack onAttack;
     public delegate void OnSprint(float holdAction);
     public OnSprint onSprint;
     public delegate void OnDash();
@@ -41,7 +41,6 @@ public class InputManager : MonoBehaviour
             inputActions = new InputSystem_Actions();
 
             inputActions.GeneralControls.Move.performed += i => onMovement?.Invoke(i.ReadValue<Vector2>());
-            inputActions.GeneralControls.Look.performed += i => onMouseMovement?.Invoke(i.ReadValue<Vector2>());
 
             inputActions.GeneralControls.Interaction.performed += i => onInteraction?.Invoke();
         }
@@ -61,6 +60,9 @@ public class InputManager : MonoBehaviour
         inputActions.BoyControls.Jump.performed += i => onJump?.Invoke();
         inputActions.BoyControls.Sprint.performed += i => onSprint?.Invoke(i.ReadValue<float>());
         inputActions.BoyControls.Dash.performed += i => onDash?.Invoke();
+
+        inputActions.BoyControls.Attack.performed += i => onAttack?.Invoke();
+
         inputActions.BoyControls.EnterMech.performed += i => onEnterMech?.Invoke();
     }
 

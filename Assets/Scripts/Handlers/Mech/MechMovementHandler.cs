@@ -58,7 +58,6 @@ public class MechMovementHandler : BaseStateMachine<MechMovementStates>
         inputManager = playerController.InputManager;
 
         inputManager.onMovement += GetMovementAxis;
-        inputManager.onMouseMovement += GetMouseAxis;
         inputManager.onDash += TryDashing;
 
         LoadStates();
@@ -76,7 +75,7 @@ public class MechMovementHandler : BaseStateMachine<MechMovementStates>
 
     public void ActiveMovement()
     {
-        
+
     }
 
     public void DeactivateMovement()

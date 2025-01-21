@@ -7,15 +7,16 @@ using UnityEngine.Rendering;
 
 public class BoyStatsHandler : BaseStateMachine<BoyStates>
 {
+    BoyController boyController;
     PlayerController playerController;
 
     [Header("Stats")]
     [SerializeField] int healthPoints;
     public bool isDashing;
 
-    public void Initialize(PlayerController _playerController)
+    public void Initialize(BoyController _boyController)
     {
-        playerController = _playerController;
+        boyController = _boyController;
 
         LoadStates();
     }

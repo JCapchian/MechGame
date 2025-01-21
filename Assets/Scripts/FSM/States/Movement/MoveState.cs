@@ -19,7 +19,7 @@ public class MoveState : BaseState<MovementStates>
 
     public override void OnExit(BaseStateMachine<MovementStates> baseStateMachine)
     {
-        movementHandler.ResetVelocity();
+        //movementHandler.ResetVelocity();
     }
 
     public override void OnFixedUpdate(BaseStateMachine<MovementStates> baseStateMachine)

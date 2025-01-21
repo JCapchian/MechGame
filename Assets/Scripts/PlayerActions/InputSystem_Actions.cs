@@ -553,15 +553,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""6b444451-8a00-4d00-a97e-f47457f736a8"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Interaction"",
                     ""type"": ""Button"",
                     ""id"": ""d47744a0-0af4-4fe1-abc5-7a073b678225"",
@@ -706,39 +697,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3e5f5442-8668-4b27-a940-df99bad7e831"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a597d598-d8b2-447c-923c-c7e0e9f640cb"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -837,6 +795,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0f632ff-5001-4272-a093-10a7ebb0bd7a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -927,6 +894,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""EnterMech"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6dc8c6b-741e-4d51-9cb7-7bf42e13f134"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1009,7 +987,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // GeneralControls
         m_GeneralControls = asset.FindActionMap("GeneralControls", throwIfNotFound: true);
         m_GeneralControls_Move = m_GeneralControls.FindAction("Move", throwIfNotFound: true);
-        m_GeneralControls_Look = m_GeneralControls.FindAction("Look", throwIfNotFound: true);
         m_GeneralControls_Interaction = m_GeneralControls.FindAction("Interaction", throwIfNotFound: true);
         // MechControls
         m_MechControls = asset.FindActionMap("MechControls", throwIfNotFound: true);
@@ -1021,6 +998,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_BoyControls_Sprint = m_BoyControls.FindAction("Sprint", throwIfNotFound: true);
         m_BoyControls_Dash = m_BoyControls.FindAction("Dash", throwIfNotFound: true);
         m_BoyControls_EnterMech = m_BoyControls.FindAction("EnterMech", throwIfNotFound: true);
+        m_BoyControls_Attack = m_BoyControls.FindAction("Attack", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1209,14 +1187,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GeneralControls;
     private List<IGeneralControlsActions> m_GeneralControlsActionsCallbackInterfaces = new List<IGeneralControlsActions>();
     private readonly InputAction m_GeneralControls_Move;
-    private readonly InputAction m_GeneralControls_Look;
     private readonly InputAction m_GeneralControls_Interaction;
     public struct GeneralControlsActions
     {
         private @InputSystem_Actions m_Wrapper;
         public GeneralControlsActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_GeneralControls_Move;
-        public InputAction @Look => m_Wrapper.m_GeneralControls_Look;
         public InputAction @Interaction => m_Wrapper.m_GeneralControls_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_GeneralControls; }
         public void Enable() { Get().Enable(); }
@@ -1230,9 +1206,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
@@ -1243,9 +1216,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
@@ -1328,6 +1298,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BoyControls_Sprint;
     private readonly InputAction m_BoyControls_Dash;
     private readonly InputAction m_BoyControls_EnterMech;
+    private readonly InputAction m_BoyControls_Attack;
     public struct BoyControlsActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1336,6 +1307,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_BoyControls_Sprint;
         public InputAction @Dash => m_Wrapper.m_BoyControls_Dash;
         public InputAction @EnterMech => m_Wrapper.m_BoyControls_EnterMech;
+        public InputAction @Attack => m_Wrapper.m_BoyControls_Attack;
         public InputActionMap Get() { return m_Wrapper.m_BoyControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1357,6 +1329,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @EnterMech.started += instance.OnEnterMech;
             @EnterMech.performed += instance.OnEnterMech;
             @EnterMech.canceled += instance.OnEnterMech;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(IBoyControlsActions instance)
@@ -1373,6 +1348,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @EnterMech.started -= instance.OnEnterMech;
             @EnterMech.performed -= instance.OnEnterMech;
             @EnterMech.canceled -= instance.OnEnterMech;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(IBoyControlsActions instance)
@@ -1451,7 +1429,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     public interface IGeneralControlsActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
     }
     public interface IMechControlsActions
@@ -1465,5 +1442,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnEnterMech(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

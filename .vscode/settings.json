@@ -56,7 +56,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "MechGame.sln",
+    "dotnet.defaultSolution": "MechGameee.sln",
     "cSpell.words": [
         "Raycast"
     ]

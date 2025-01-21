@@ -20,6 +20,7 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
     bool isGrounded;
     public bool IsGrounded { get => isGrounded; }
     float currentVelocity;
+    Vector3 moveVector;
     #endregion
 
     [Header("Components")]
@@ -121,7 +122,12 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
         if (!isGrounded)
             return;
 
+        if (!boyController.BoyAbilityHandler.InCombatMode)
+            return;
         var direction = mouseWorldPosition - boyController.CharacterModel.transform.position;
+        //direction = mouseWorldPosition - boyController.CharacterModel.transform.position;
+        // else
+        //     direction = moveVector - boyController.CharacterModel.transform.position;
 
         direction.y = 0;
         boyController.CharacterModel.transform.forward = direction;
@@ -151,7 +157,7 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
         if (currentVelocity >= speedLimit)
             currentVelocity = speedLimit;
 
-        Vector3 MoveVector = transform.TransformDirection(currentMovementAxi.x, 0, currentMovementAxi.y) * currentVelocity;
+        var MoveVector = transform.TransformDirection(currentMovementAxi.x, 0, currentMovementAxi.y) * currentVelocity;
         rigid.linearVelocity = MoveVector;
     }
 

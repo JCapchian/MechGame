@@ -17,7 +17,8 @@ public class IdleState : BaseState<MovementStates>
         // if (movementHandler.InAir)
         //     return;
 
-        //movementHandler.ResetVelocity();
+        movementHandler.ResetVelocity();
+        //Debug.Log("Idle");
     }
 
     public override void OnExit(BaseStateMachine<MovementStates> baseStateMachine)
