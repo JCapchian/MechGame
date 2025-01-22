@@ -57,6 +57,12 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
     [SerializeField] float dashSpeedLimit;
     public float DashSpeedLimit { get => dashSpeedLimit; }
     [Space(2f)]
+    [Header("Carrying")]
+    [SerializeField] float carryingModifier;
+    public float CarryingModifier { get => carryingModifier; }
+    [SerializeField] float carryingLimit;
+    public float CarryingLimit { get => carryingLimit; }
+    [Space(2f)]
     [Header("Climbing")]
     [SerializeField] LayerMask climbLayer;
     [SerializeField][Range(0.5f, 1f)] float climbDetectionRange;
@@ -67,7 +73,6 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
     [SerializeField] float climbSpeedLimit;
     public float ClimbSpeedLimit { get => climbSpeedLimit; }
     [SerializeField] float climbExitJumpForce;
-
 
     public void Initialize(PlayerController _playerController, BoyController _boyController)
     {
@@ -93,6 +98,7 @@ public class BoyMovementHandler : BaseStateMachine<MovementStates>
         dictionaryStates.Add(MovementStates.Dashing, new DashState(MovementStates.Dashing, this));
         dictionaryStates.Add(MovementStates.Jumping, new JumpingState(MovementStates.Jumping, this));
         dictionaryStates.Add(MovementStates.Climbing, new ClimbingState(MovementStates.Climbing, this));
+        dictionaryStates.Add(MovementStates.Carrying, new CarryingState(MovementStates.Carrying, this));
 
         currentState = dictionaryStates[MovementStates.Idle];
     }

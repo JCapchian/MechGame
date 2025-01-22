@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 public class MechMovementHandler : BaseStateMachine<MechMovementStates>
 {
-    PlayerController playerController;
+    MechController mechController;
     InputManager inputManager;
 
     #region Internal Variables
@@ -52,10 +52,10 @@ public class MechMovementHandler : BaseStateMachine<MechMovementStates>
     [SerializeField] float dashSpeedLimit;
     public float DashSpeedLimit { get => dashSpeedLimit; }
 
-    public void Initialize(PlayerController _playerController)
+    public void Initialize(MechController _mechController)
     {
-        playerController = _playerController;
-        inputManager = playerController.InputManager;
+        mechController = _mechController;
+        inputManager = mechController.PlayerController.InputManager;
 
         inputManager.onMovement += GetMovementAxis;
         inputManager.onDash += TryDashing;
@@ -105,42 +105,7 @@ public class MechMovementHandler : BaseStateMachine<MechMovementStates>
 
     public void RotatePlayerModel()
     {
-        if (!isGrounded)
-            return;
 
-        // Vector3 lookAtPos = currentMouseAxi;
-        // lookAtPos.z = transform.position.z - Camera.main.transform.position.z;
-        // transform.up = lookAtPos - transform.position;
-
-        //var lookAtPos = currentMouseAxi - rigid.position;
-
-
-        // float angle = Mathf.Atan2(
-        //     playerController.transform.position.y - currentMousePosition.y,
-        //     playerController.transform.position.x - currentMousePosition.x)
-        //     * Mathf.Rad2Deg;
-        // Debug.Log(angle);
-        // playerController.transform.Rotate(0, angle, 0);
-
-        if (currentMovementAxi.magnitude != 0)
-        {
-            var relative = (playerController.transform.position + new Vector3(currentMovementAxi.x, 0, currentMovementAxi.y)) - playerController.transform.position;
-            var rot = Quaternion.LookRotation(relative, Vector3.up);
-
-
-            playerController.transform.rotation = Quaternion.RotateTowards(playerController.transform.rotation, rot, 5f * Time.deltaTime);
-
-        }
-        //playerController.transform.Rotate(new Vector3(0, angle, 0) * Time.deltaTime, Space.World);
-
-        //rigid.rotation = angle;
-        //rigid.MoveRotation(angle);
-
-        // playerController.transform.LookAt(currentMouseAxi);
-        //playerController.transform.Rotate(0, currentMouseAxi.y, 0);
-
-        // var rot = Quaternion.LookRotation(currentMouseAxi, Vector3.up);
-        // transform.rotation = Quaternion.RotateTowards(playerController.transform.rotation, rot, movementSpeed * Time.deltaTime);
     }
 
     #region Velocity Function

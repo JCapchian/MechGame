@@ -11,6 +11,9 @@ public class MechController : BaseController
     public MechMovementHandler MechMovementHandler { get => mechMovementHandler; }
     [SerializeField] InteractionHandler interactionHandler;
     public InteractionHandler InteractionHandler { get => interactionHandler; set => interactionHandler = value; }
+    [SerializeField] MechAbilityHandler mechAbilityHandler;
+    public MechAbilityHandler MechAbilityHandler { get => mechAbilityHandler; set => mechAbilityHandler = value; }
+
     #endregion
 
     [SerializeField] float exitDetectionRadius;
@@ -23,8 +26,9 @@ public class MechController : BaseController
     {
         base.Initialize(_playerController);
 
-        mechMovementHandler.Initialize(playerController);
+        mechMovementHandler.Initialize(this);
         interactionHandler.Initialize(playerController);
+        mechAbilityHandler.Initialize(this);
 
         playerController.InputManager.onExitMech += ExitMech;
     }

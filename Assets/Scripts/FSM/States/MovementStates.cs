@@ -5,5 +5,6 @@ public enum MovementStates
     Dashing,
     Run,
     Climbing,
-    Jumping
+    Jumping,
+    Carrying
 }

@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &112391866114514291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7693587636259135931}
+  - component: {fileID: 2358408719206767837}
+  - component: {fileID: 6192000378199411062}
+  m_Layer: 3
+  m_Name: MechStatsHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7693587636259135931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112391866114514291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2009113745242047107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2358408719206767837
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112391866114514291}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6192000378199411062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112391866114514291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da7f7f17b76db64a8d240bce4b5368d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545260951611373670
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8004526925071812719}
   - component: {fileID: 66420685238366705}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MechMovementHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 402472206129720804}
   - component: {fileID: 5215806229478560278}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractionHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +167,12 @@ MonoBehaviour:
   interactionLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactionRange: 3
+  interactionRadius: 0
   characterType: 0
   interactionAction: {fileID: 0}
+  itemToDrop: {fileID: 0}
+  currentCarrionItem: {fileID: 0}
+  carryingItemContainer: {fileID: 0}
 --- !u!1 &2872755764080792232
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4945884469787176469}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,9 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2009113745242047107}
-  - component: {fileID: 3020522969488261445}
-  - component: {fileID: 7781514777788113193}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Handlers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,46 +236,10 @@ Transform:
   m_Children:
   - {fileID: 8004526925071812719}
   - {fileID: 402472206129720804}
+  - {fileID: 7693587636259135931}
+  - {fileID: 5685564723198848237}
   m_Father: {fileID: 1825176754468469306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3020522969488261445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3276470961813293508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 339948bfae7485c419256cbe7d748958, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
-  characterType: 1
-  mechController: {fileID: 5549191857454736999}
-  boyController: {fileID: 0}
-  cameraHandler: {fileID: 0}
---- !u!65 &7781514777788113193
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3276470961813293508}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5530686372127225297
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,9 +251,10 @@ GameObject:
   - component: {fileID: 1825176754468469306}
   - component: {fileID: 5549191857454736999}
   - component: {fileID: 5611639533180922428}
-  m_Layer: 0
+  - component: {fileID: 2574333786305621383}
+  m_Layer: 3
   m_Name: Mech
-  m_TagString: Untagged
+  m_TagString: Mech
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,9 +288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92b5f9a1dcba8d4dbdf546e025b5659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterModel: {fileID: 2872755764080792232}
   mechMovementHandler: {fileID: 66420685238366705}
   interactionHandler: {fileID: 5215806229478560278}
+  mechAbilityHandler: {fileID: 6081950981244849145}
+  exitDetectionRadius: 0.63
+  exitDetectionDistance: 1.79
 --- !u!54 &5611639533180922428
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -286,6 +320,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &2574333786305621383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530686372127225297}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6836882279293984211
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +353,7 @@ GameObject:
   - component: {fileID: 7482636317687723706}
   - component: {fileID: 4264352176857974196}
   - component: {fileID: 4653656444861736495}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,3 +449,47 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8747261099076996698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5685564723198848237}
+  - component: {fileID: 6081950981244849145}
+  m_Layer: 3
+  m_Name: AbiltyHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5685564723198848237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747261099076996698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2009113745242047107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6081950981244849145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747261099076996698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf1e6b4b6bba154f8835309622011d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -33,6 +33,9 @@ public class BoyAbilityHandler : MonoBehaviour
         if (!boyController.BoyMovementHandler.IsGrounded)
             return;
 
+        if (boyController.BoyMovementHandler.CurrentState.Type == MovementStates.Carrying)
+            return;
+
         Attack();
     }
 
@@ -42,6 +45,8 @@ public class BoyAbilityHandler : MonoBehaviour
 
         TryCombatMode();
     }
+
+    #region Combat Mode Region
 
     public void TryCombatMode()
     {
@@ -65,4 +70,6 @@ public class BoyAbilityHandler : MonoBehaviour
         inCombatMode = false;
         //return default;
     }
+
+    #endregion
 }

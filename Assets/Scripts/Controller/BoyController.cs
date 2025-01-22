@@ -9,8 +9,8 @@ public class BoyController : BaseController
     public BoyMovementHandler BoyMovementHandler { get => boyMovementHandler; }
     [SerializeField] BoyStatsHandler boyStatsHandler;
     public BoyStatsHandler BoyStatsHandler { get => boyStatsHandler; }
-    [SerializeField] InteractionHandler interactionHandler;
-    public InteractionHandler InteractionHandler { get => interactionHandler; }
+    [SerializeField] BoyInteractionHandler boyInteractionHandler;
+    public BoyInteractionHandler BoyInteractionHandler { get => boyInteractionHandler; }
     [SerializeField] BoyAbilityHandler boyAbilityHandler;
     public BoyAbilityHandler BoyAbilityHandler { get => boyAbilityHandler; }
     #endregion
@@ -26,7 +26,7 @@ public class BoyController : BaseController
 
         boyMovementHandler.Initialize(playerController, this);
         boyStatsHandler.Initialize(this);
-        interactionHandler.Initialize(playerController);
+        boyInteractionHandler.Initialize(playerController);
         boyAbilityHandler.Initialize(this);
 
         CharacterModel.SetActive(true);
@@ -64,7 +64,7 @@ public class BoyController : BaseController
 
     public override void ControllerUpdate()
     {
-        interactionHandler.CheckObjectsAround();
+        boyInteractionHandler.CheckObjectsAround();
     }
 
     public override void ControllerFixedUpdate()

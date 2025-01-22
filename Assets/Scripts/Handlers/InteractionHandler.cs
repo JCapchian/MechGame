@@ -1,32 +1,37 @@
 using System.Linq;
 using System.Runtime.InteropServices;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour
 {
-    PlayerController playerController;
+    protected PlayerController playerController;
 
-    [SerializeField] LayerMask interactionLayer;
-    [SerializeField] float interactionRange;
-    [SerializeField] CharacterType characterType;
-    [SerializeField] InteractionAction interactionAction;
+    [Header("Variables")]
+    [SerializeField] protected LayerMask interactionLayer;
+    [SerializeField] protected float interactionRadius;
+    [SerializeField] protected CharacterType characterType;
+    protected InteractionAction interactionAction;
 
-    public void Initialize(PlayerController _playerController)
+    public virtual void Initialize(PlayerController _playerController)
     {
         playerController = _playerController;
 
         playerController.InputManager.onInteraction += Interact;
     }
 
-    public void CheckObjectsAround()
+    public virtual void CheckObjectsAround()
     {
-        var interactable = Physics.OverlapSphere(transform.position, interactionRange, interactionLayer);
-        if (interactable.Length == 1)
+        var interactable = Physics.OverlapSphere(transform.position, interactionRadius, interactionLayer);
+        // Pregunto si tiene algún objeto
+        if (!interactable.Any())
         {
-            interactionAction = null;
+            if (interactionAction != null)
+                interactionAction = null;
             return;
         }
-        var objectToInteract = interactable[1].GetComponent<InteractionAction>();
+
+        var objectToInteract = interactable[0].GetComponent<InteractionAction>();
 
         if (interactionAction != objectToInteract)
             if (objectToInteract.CharacterType == characterType)
@@ -36,7 +41,6 @@ public class InteractionHandler : MonoBehaviour
     public void Interact()
     {
         if (interactionAction)
-            interactionAction.Interact(characterType);
+            interactionAction.Interact(this, characterType);
     }
-
 }

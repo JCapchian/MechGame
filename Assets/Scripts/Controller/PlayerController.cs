@@ -20,8 +20,10 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Controllers
-    [SerializeField] BaseController boyController;
-    [SerializeField] BaseController mechController;
+    [SerializeField] BoyController boyController;
+    public BoyController BoyController { get => boyController; }
+    [SerializeField] MechController mechController;
+    public MechController MechController { get => mechController; }
     [SerializeField] BaseController characterController;
     public BaseController CharacterController { get => characterController; set => characterController = value; }
     #endregion

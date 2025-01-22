@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &769719864419447994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2784789698543792682}
+  m_Layer: 3
+  m_Name: CarryingItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2784789698543792682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769719864419447994}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1039509868929334029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1971714862901371951
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,9 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1647256880850905496}
-  - component: {fileID: 7295785189544450704}
   - component: {fileID: 6471211275780377703}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Handlers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,23 +67,6 @@ Transform:
   - {fileID: 5843795335432811148}
   m_Father: {fileID: 1499955831360493340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7295785189544450704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971714862901371951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0674b76820dbd84296a6aa453b40289, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
-  characterType: 0
-  mechController: {fileID: 0}
-  boyController: {fileID: 3982576918006802712}
-  cameraHandler: {fileID: 0}
 --- !u!65 &6471211275780377703
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5843795335432811148}
   - component: {fileID: 6131727783867737539}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: AbilityHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicAttack: {fileID: 3448804405968703357}
+  combatModeDuration: 1
   inCombatMode: 0
 --- !u!1 &2864102321464024163
 GameObject:
@@ -133,7 +147,7 @@ GameObject:
   - component: {fileID: 7191874135176090796}
   - component: {fileID: 2715914685046063573}
   - component: {fileID: 3203009329091271125}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4568817166390754844}
   - component: {fileID: 5479021378815926154}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MovementHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,6 +277,8 @@ MonoBehaviour:
   dashDuration: 0.22
   dashModifier: 50
   dashSpeedLimit: 100
+  carryingModifier: 0
+  carryingLimit: 0
   climbLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -280,7 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7760605375038302479}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4696228445534943491}
   - component: {fileID: 2964828509849733163}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StatsHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,8 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca47ff5330dc99b4f9c2982f43779f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 0
-  isDashing: 0
+  healthPoints: 5
 --- !u!1 &4911839710582275132
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +376,7 @@ GameObject:
   - component: {fileID: 1499955831360493340}
   - component: {fileID: 3982576918006802712}
   - component: {fileID: 5274646289641632112}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,6 +417,7 @@ MonoBehaviour:
   interactionHandler: {fileID: 6565168186415448310}
   boyAbilityHandler: {fileID: 6131727783867737539}
   characterModel: {fileID: 4150956538848475448}
+  enterMechRadius: 1.3
 --- !u!54 &5274646289641632112
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -439,7 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1039509868929334029}
   - component: {fileID: 6565168186415448310}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractionHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +474,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2784789698543792682}
   m_Father: {fileID: 1647256880850905496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6565168186415448310
@@ -476,9 +493,12 @@ MonoBehaviour:
   interactionLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactionRange: 2
+  interactionRange: 5
   characterType: 1
   interactionAction: {fileID: 0}
+  itemToDrop: {fileID: 0}
+  currentCarrionItem: {fileID: 0}
+  carryingItemContainer: {fileID: 2784789698543792682}
 --- !u!1 &8195669615943811211
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3650034999191121972}
   - component: {fileID: 3448804405968703357}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: BasicAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +555,7 @@ GameObject:
   - component: {fileID: 1803873005314931014}
   - component: {fileID: 4377832396119610976}
   - component: {fileID: 4943561137442595637}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

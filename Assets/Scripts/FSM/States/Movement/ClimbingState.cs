@@ -13,8 +13,6 @@ public class ClimbingState : BaseState<MovementStates>
 
     public override MovementStates Type { get => type; }
 
-
-
     public override void OnEnter(BaseStateMachine<MovementStates> baseStateMachine)
     {
         Debug.Log("ClimbingState");

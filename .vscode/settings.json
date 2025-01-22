@@ -58,6 +58,7 @@
     },
     "dotnet.defaultSolution": "MechGameee.sln",
     "cSpell.words": [
+        "raycast",
         "Raycast"
     ]
 }

@@ -8,11 +8,9 @@ using UnityEngine.Rendering;
 public class BoyStatsHandler : BaseStateMachine<BoyStates>
 {
     BoyController boyController;
-    PlayerController playerController;
 
     [Header("Stats")]
     [SerializeField] int healthPoints;
-    public bool isDashing;
 
     public void Initialize(BoyController _boyController)
     {
@@ -33,7 +31,7 @@ public class BoyStatsHandler : BaseStateMachine<BoyStates>
 
     public void TakeDamage()
     {
-        if (isDashing)
+        if (boyController.BoyMovementHandler.CurrentState.Type == MovementStates.Dashing)
             return;
 
         healthPoints--;
@@ -44,6 +42,6 @@ public class BoyStatsHandler : BaseStateMachine<BoyStates>
 
     public void Death()
     {
-
+        SwitchState(BoyStates.Death);
     }
 }
