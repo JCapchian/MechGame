@@ -52,9 +52,9 @@ public class BoyController : BaseController
         var pepe = Physics.OverlapSphere(transform.position, enterMechRadius);
         foreach (var item in pepe)
         {
-            if (item.GetComponent<MechController>())
+            if (item.GetComponent<MechStatsHandler>())
             {
-                EnterMech();
+                playerController.ChangeToMech();
                 return;
             }
         }

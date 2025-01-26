@@ -277,8 +277,8 @@ MonoBehaviour:
   dashDuration: 0.22
   dashModifier: 50
   dashSpeedLimit: 100
-  carryingModifier: 0
-  carryingLimit: 0
+  carryingModifier: 3
+  carryingLimit: 3
   climbLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boyMovementHandler: {fileID: 5479021378815926154}
   boyStatsHandler: {fileID: 2964828509849733163}
-  interactionHandler: {fileID: 6565168186415448310}
+  boyInteractionHandler: {fileID: 9075205744094977499}
   boyAbilityHandler: {fileID: 6131727783867737539}
   characterModel: {fileID: 4150956538848475448}
   enterMechRadius: 1.3
@@ -454,7 +454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039509868929334029}
-  - component: {fileID: 6565168186415448310}
+  - component: {fileID: 9075205744094977499}
   m_Layer: 3
   m_Name: InteractionHandler
   m_TagString: Untagged
@@ -478,7 +478,7 @@ Transform:
   - {fileID: 2784789698543792682}
   m_Father: {fileID: 1647256880850905496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6565168186415448310
+--- !u!114 &9075205744094977499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -487,17 +487,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8038173241526604218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0c01660638c9c4fa2a391d18345044, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a0b2d29a5a19b04fae1f3124c3db47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactionLayer:
     serializedVersion: 2
     m_Bits: 128
-  interactionRange: 5
+  interactionRadius: 2
   characterType: 1
-  interactionAction: {fileID: 0}
-  itemToDrop: {fileID: 0}
-  currentCarrionItem: {fileID: 0}
   carryingItemContainer: {fileID: 2784789698543792682}
 --- !u!1 &8195669615943811211
 GameObject:

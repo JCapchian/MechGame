@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BoyInteractionHandler : InteractionHandler
@@ -60,6 +61,7 @@ public class BoyInteractionHandler : InteractionHandler
 
     public void HoldItem(GameObject _itemHold, UpgradeModulePickUp _prefabToDrop)
     {
+        Debug.Log("Hold");
         // Asigno los objetos nuevos
         currentCarryingItem = _itemHold;
         itemToDrop = _prefabToDrop;
@@ -75,6 +77,7 @@ public class BoyInteractionHandler : InteractionHandler
 
     public void DropItem()
     {
+        Debug.Log("Drops");
         // Cambio los eventos
         playerController.InputManager.onInteraction -= DropItem;
         playerController.InputManager.onInteraction += Interact;

@@ -21,7 +21,6 @@ public class UpgradeModulePickUp : InteractionAction
     public override void Interact(InteractionHandler interactionHandler, CharacterType character)
     {
         base.Interact(interactionHandler, character);
-
         boyInteractionHandler.HoldItem(itemHold, prefabToDrop);
         boxCollider.isTrigger = true;
         rb.constraints = RigidbodyConstraints.FreezeAll;

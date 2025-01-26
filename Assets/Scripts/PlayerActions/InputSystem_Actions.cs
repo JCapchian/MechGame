@@ -729,6 +729,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OverloadCharge"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e8f598a-6580-46db-877f-fa5f7baa3ce8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OverloadFlashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""64036c53-b21b-44a8-81d3-9c08ee00f9d3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -751,6 +769,50 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ExitMech"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22894b36-62ab-45d1-a30a-5c86efe5fdd8"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OverloadCharge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d5d264d-7c87-46a3-9575-477b0b947a81"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""OverloadCharge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1daa33ee-5d3c-4745-aca5-000ceb4f6fd8"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OverloadFlashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09ff706e-1ae1-4076-bb7f-682b39c44067"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""OverloadFlashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -992,6 +1054,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_MechControls = asset.FindActionMap("MechControls", throwIfNotFound: true);
         m_MechControls_GolpeCargado = m_MechControls.FindAction("GolpeCargado", throwIfNotFound: true);
         m_MechControls_ExitMech = m_MechControls.FindAction("ExitMech", throwIfNotFound: true);
+        m_MechControls_OverloadCharge = m_MechControls.FindAction("OverloadCharge", throwIfNotFound: true);
+        m_MechControls_OverloadFlashlight = m_MechControls.FindAction("OverloadFlashlight", throwIfNotFound: true);
         // BoyControls
         m_BoyControls = asset.FindActionMap("BoyControls", throwIfNotFound: true);
         m_BoyControls_Jump = m_BoyControls.FindAction("Jump", throwIfNotFound: true);
@@ -1242,12 +1306,16 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IMechControlsActions> m_MechControlsActionsCallbackInterfaces = new List<IMechControlsActions>();
     private readonly InputAction m_MechControls_GolpeCargado;
     private readonly InputAction m_MechControls_ExitMech;
+    private readonly InputAction m_MechControls_OverloadCharge;
+    private readonly InputAction m_MechControls_OverloadFlashlight;
     public struct MechControlsActions
     {
         private @InputSystem_Actions m_Wrapper;
         public MechControlsActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @GolpeCargado => m_Wrapper.m_MechControls_GolpeCargado;
         public InputAction @ExitMech => m_Wrapper.m_MechControls_ExitMech;
+        public InputAction @OverloadCharge => m_Wrapper.m_MechControls_OverloadCharge;
+        public InputAction @OverloadFlashlight => m_Wrapper.m_MechControls_OverloadFlashlight;
         public InputActionMap Get() { return m_Wrapper.m_MechControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1263,6 +1331,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ExitMech.started += instance.OnExitMech;
             @ExitMech.performed += instance.OnExitMech;
             @ExitMech.canceled += instance.OnExitMech;
+            @OverloadCharge.started += instance.OnOverloadCharge;
+            @OverloadCharge.performed += instance.OnOverloadCharge;
+            @OverloadCharge.canceled += instance.OnOverloadCharge;
+            @OverloadFlashlight.started += instance.OnOverloadFlashlight;
+            @OverloadFlashlight.performed += instance.OnOverloadFlashlight;
+            @OverloadFlashlight.canceled += instance.OnOverloadFlashlight;
         }
 
         private void UnregisterCallbacks(IMechControlsActions instance)
@@ -1273,6 +1347,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ExitMech.started -= instance.OnExitMech;
             @ExitMech.performed -= instance.OnExitMech;
             @ExitMech.canceled -= instance.OnExitMech;
+            @OverloadCharge.started -= instance.OnOverloadCharge;
+            @OverloadCharge.performed -= instance.OnOverloadCharge;
+            @OverloadCharge.canceled -= instance.OnOverloadCharge;
+            @OverloadFlashlight.started -= instance.OnOverloadFlashlight;
+            @OverloadFlashlight.performed -= instance.OnOverloadFlashlight;
+            @OverloadFlashlight.canceled -= instance.OnOverloadFlashlight;
         }
 
         public void RemoveCallbacks(IMechControlsActions instance)
@@ -1435,6 +1515,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     {
         void OnGolpeCargado(InputAction.CallbackContext context);
         void OnExitMech(InputAction.CallbackContext context);
+        void OnOverloadCharge(InputAction.CallbackContext context);
+        void OnOverloadFlashlight(InputAction.CallbackContext context);
     }
     public interface IBoyControlsActions
     {

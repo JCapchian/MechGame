@@ -32,6 +32,10 @@ public class InputManager : MonoBehaviour
     #region MechAction Events
     public delegate void OnExitMech();
     public OnExitMech onExitMech;
+    public delegate void OnAbilityCharge();
+    public OnAbilityCharge onAbilityCharge;
+    public delegate void OnAbilityFlashlight();
+    public OnAbilityFlashlight onAbilityFlashlight;
     #endregion
 
     private void OnEnable()
@@ -76,9 +80,8 @@ public class InputManager : MonoBehaviour
         inputActions.MechControls.Enable();
 
         inputActions.MechControls.ExitMech.performed += i => onExitMech?.Invoke();
-
-
-        //inputActions.MechControls.Move.performed += i => onMovement?.Invoke(i
+        inputActions.MechControls.OverloadCharge.performed += i => onAbilityCharge?.Invoke();
+        inputActions.MechControls.OverloadFlashlight.performed += i => onAbilityFlashlight?.Invoke();
 
     }
 

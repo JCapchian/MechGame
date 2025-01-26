@@ -707,6 +707,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OverloadCharge",
+                    "type": "Button",
+                    "id": "0e8f598a-6580-46db-877f-fa5f7baa3ce8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OverloadFlashlight",
+                    "type": "Button",
+                    "id": "64036c53-b21b-44a8-81d3-9c08ee00f9d3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -729,6 +747,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "ExitMech",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22894b36-62ab-45d1-a30a-5c86efe5fdd8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OverloadCharge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d5d264d-7c87-46a3-9575-477b0b947a81",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "OverloadCharge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1daa33ee-5d3c-4745-aca5-000ceb4f6fd8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OverloadFlashlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09ff706e-1ae1-4076-bb7f-682b39c44067",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "OverloadFlashlight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
