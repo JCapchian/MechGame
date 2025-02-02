@@ -61,7 +61,6 @@ public class BoyInteractionHandler : InteractionHandler
 
     public void HoldItem(GameObject _itemHold, UpgradeModulePickUp _prefabToDrop)
     {
-        Debug.Log("Hold");
         // Asigno los objetos nuevos
         currentCarryingItem = _itemHold;
         itemToDrop = _prefabToDrop;
@@ -77,19 +76,20 @@ public class BoyInteractionHandler : InteractionHandler
 
     public void DropItem()
     {
-        Debug.Log("Drops");
         // Cambio los eventos
         playerController.InputManager.onInteraction -= DropItem;
         playerController.InputManager.onInteraction += Interact;
         // Cambio el movimiento
         boyMovementHandler.SwitchState(MovementStates.Move);
         // Le quito el padre
-        currentCarryingItem.transform.SetParent(null);
+        if (currentCarryingItem)
+            currentCarryingItem.transform.SetParent(null);
         // Vació las referencias
         interactionAction = null;
         currentCarryingItem = null;
         // Le digo al objeto que lo voy a tirar
-        itemToDrop.DropPickUp();
+        if (itemToDrop)
+            itemToDrop.DropPickUp();
         itemToDrop = null;
     }
 

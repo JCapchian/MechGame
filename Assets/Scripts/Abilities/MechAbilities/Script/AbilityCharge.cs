@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class AbilityCharge : BaseAbility
 {
-    public override void Execute()
+    public override void TryExecute()
     {
-        base.Execute();
+        base.TryExecute();
         mechAbilityHandler.OverloadCharge();
     }
 }

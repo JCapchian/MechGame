@@ -36,8 +36,10 @@ public class PlayerController : MonoBehaviour
             instance = this;
 
         cameraHandler.Initialize(this);
-
         guiHandler.Initialize(this);
+
+        boyController.Initialize(this);
+        mechController.Initialize(this);
 
         CharacterController.Initialize(this);
     }
@@ -64,6 +66,9 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeToBoy()
     {
+        guiHandler.HideMechGui();
+        guiHandler.ShowBoyGui();
+        
         if (characterController == boyController)
             return;
 
@@ -82,6 +87,9 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeToMech()
     {
+        guiHandler.HideBoyGui();
+        guiHandler.ShowMechGui();
+
         if (characterController == mechController)
             return;
 

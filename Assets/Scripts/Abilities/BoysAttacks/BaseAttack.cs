@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class BaseAttack : BaseAbility
+public class BaseAttack : MonoBehaviour
 {
-    public override void Execute()
+    public virtual void Execute()
     {
-        base.Execute();
+
     }
 }

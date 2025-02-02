@@ -1,14 +1,28 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class MechAbilityHandler : MonoBehaviour
 {
-    InputManager inputManager;
+    //* MARK: Controllers
     MechController mechController;
-    [Header("Abilities")]
+    PlayerController playerController;
+
+    //* MARK: Managers
+    InputManager inputManager;
+
+    //* MARK: Handlers
+    GuiHandler guiHandler;
+
+
+    //* MARK: Handlers
+    [Header("Abilities Data")]
     [SerializeField] List<BaseAbility> abilities;
+    [SerializeField] Transform abilitiesContainer;
 
     [SerializeField] ScriptableAbility overloadChargeData;
     BaseAbility overloadChargeAbility;
@@ -18,43 +32,50 @@ public class MechAbilityHandler : MonoBehaviour
     public void Initialize(MechController _mechController)
     {
         mechController = _mechController;
-        inputManager = mechController.PlayerController.InputManager;
+        playerController = mechController.PlayerController;
+
+        inputManager = playerController.InputManager;
+        guiHandler = playerController.GuiHandler;
 
         inputManager.onAbilityCharge += TryOverloadedCharge;
         inputManager.onAbilityFlashlight += TryOverloadFlashlight;
     }
 
-    #region Upgrade Region
-
-    public void InstallUpgrade(BaseAbility abilityToInstall)
-    {
-        abilities.Add(abilityToInstall);
-    }
-    #endregion
-
     #region Abilities Region
+    public void InstallAbility(ScriptableAbility abilityToInstall)
+    {
+        var ability = PrefabUtility.InstantiatePrefab(abilityToInstall.ability, abilitiesContainer) as BaseAbility;
+        var icon = Instantiate(abilityToInstall.iconPrefab);
+
+        icon.Initialize(abilityToInstall);
+        ability.Initialize(this, abilityToInstall);
+        ability.AbilityIcon = icon;
+
+        guiHandler.AddNewAbility(icon);
+        abilities.Add(ability);
+    }
 
     public void TryOverloadedCharge()
     {
-        Debug.Log("Over");
-        // Chequeos si existe la habilidad
-
         // Pregunta si tiene la habilidad guardad
         if (!overloadChargeAbility)
         {
             // Pregunta si tiene la habilidad
-            overloadChargeAbility = CheckForAbility(overloadChargeData);
+            overloadChargeAbility = CheckForAbility(overloadChargeData.abilityName);
             // Si lo que encontró esta vació no hace nada
             if (overloadChargeAbility == null)
+            {
                 return;
+            }
+            //guiHandler
         }
 
         // Otros chequeos
-
-
+        if (overloadChargeAbility.InCoolDown)
+            return;
 
         // Ejecuta la habilidad
-        overloadChargeAbility.Execute();
+        overloadChargeAbility.TryExecute();
     }
 
     public void OverloadCharge()
@@ -70,7 +91,7 @@ public class MechAbilityHandler : MonoBehaviour
         if (!overloadedFlashlightAbility)
         {
             // Pregunta si tiene la habilidad
-            overloadedFlashlightAbility = CheckForAbility(overloadedFlashlightData);
+            overloadedFlashlightAbility = CheckForAbility(overloadedFlashlightData.abilityName);
             // Si lo que encontró esta vació no hace nada
             if (overloadedFlashlightAbility == null)
                 return;
@@ -81,7 +102,7 @@ public class MechAbilityHandler : MonoBehaviour
 
 
         // Ejecuto la habilidad
-        overloadedFlashlightAbility.Execute();
+        overloadedFlashlightAbility.TryExecute();
     }
 
     public void OverloadFlashlight()
@@ -89,16 +110,16 @@ public class MechAbilityHandler : MonoBehaviour
         Debug.Log("Activo Overload Flashlight");
     }
 
-    BaseAbility CheckForAbility(ScriptableAbility scriptableAbility)
+    BaseAbility CheckForAbility(String name)
     {
         if (!abilities.Any())
             return null;
 
         foreach (var ability in abilities)
         {
-            if (ability == scriptableAbility.ability)
+            if (ability.name == name)
             {
-                ability.Assign(this);
+                // ability.Initialize(this);
                 return ability;
             }
         }

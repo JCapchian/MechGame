@@ -10,7 +10,7 @@ public class BoyAbilityHandler : MonoBehaviour
     BoyMovementHandler boyMovementHandler;
 
     [Header("Abilities")]
-    [SerializeField] BaseAbility basicAttack;
+    [SerializeField] BaseAttack basicAttack;
 
     [SerializeField] float combatModeDuration;
     [SerializeField] bool inCombatMode;

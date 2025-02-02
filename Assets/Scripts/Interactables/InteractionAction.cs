@@ -24,7 +24,5 @@ public class InteractionAction : MonoBehaviour
             Debug.Log("No es el personaje correcto");
             return;
         }
-        //interactionHandler = _interactionHandler;
-        Debug.Log("Interactuó con " + gameObject.name);
     }
 }

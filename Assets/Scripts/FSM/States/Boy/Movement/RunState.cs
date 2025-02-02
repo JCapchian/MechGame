@@ -15,7 +15,6 @@ public class RunState : BaseState<MovementStates>
 
     public override void OnEnter(BaseStateMachine<MovementStates> baseStateMachine)
     {
-        Debug.Log("Run");
         duration = movementHandler.RunDuration;
     }
 

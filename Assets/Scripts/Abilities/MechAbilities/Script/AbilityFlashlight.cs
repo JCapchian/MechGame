@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class AbilityFlashlight : BaseAbility
 {
-    public override void Execute()
+    public override void TryExecute()
     {
-        base.Execute();
+        base.TryExecute();
         mechAbilityHandler.OverloadFlashlight();
     }
 }

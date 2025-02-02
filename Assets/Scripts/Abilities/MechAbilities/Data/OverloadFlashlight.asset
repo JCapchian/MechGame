@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d2d53f224373041a52db1d5ce9d7bb, type: 3}
   m_Name: OverloadFlashlight
   m_EditorClassIdentifier: 
-  abilityName: Flashlight
+  abilityName: AbilityFlashlight
   ability: {fileID: 2688035722816564895, guid: 80c1f36c64c5ca949987a2aea5feb539, type: 3}
+  duration: 0
+  cooldown: 3
+  icon: {fileID: 21300000, guid: 46df5f1151f3b024b958e8daad357055, type: 3}
+  iconPrefab: {fileID: 4537890272063553432, guid: 22a392d777765fe4db461231718b848a, type: 3}

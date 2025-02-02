@@ -58,7 +58,9 @@
     },
     "dotnet.defaultSolution": "MechGameee.sln",
     "cSpell.words": [
+        "cooldown",
         "raycast",
-        "Raycast"
+        "Raycast",
+        "scriptable"
     ]
 }

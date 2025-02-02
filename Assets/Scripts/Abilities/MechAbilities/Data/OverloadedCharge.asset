@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d2d53f224373041a52db1d5ce9d7bb, type: 3}
   m_Name: OverloadedCharge
   m_EditorClassIdentifier: 
-  abilityName: Charge
-  ability: {fileID: 0}
+  abilityName: AbilityCharge
+  ability: {fileID: 4536423483484659653, guid: 88097a5f894385c4f8bae65ba9ae4a72, type: 3}
+  duration: 5
+  cooldown: 5
+  icon: {fileID: 21300000, guid: 95112e22d19f46b448dd8c025b3537d7, type: 3}
+  iconPrefab: {fileID: 4537890272063553432, guid: 22a392d777765fe4db461231718b848a, type: 3}

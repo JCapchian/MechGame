@@ -36,6 +36,7 @@ public class BoyStatsHandler : BaseStateMachine<BoyStates>
 
         healthPoints--;
 
+
         if (healthPoints <= 0)
             Death();
     }

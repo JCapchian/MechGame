@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6192000378199411062}
   m_Layer: 3
   m_Name: MechStatsHandler
-  m_TagString: Untagged
+  m_TagString: Mech
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,10 +169,6 @@ MonoBehaviour:
     m_Bits: 128
   interactionRadius: 0
   characterType: 0
-  interactionAction: {fileID: 0}
-  itemToDrop: {fileID: 0}
-  currentCarrionItem: {fileID: 0}
-  carryingItemContainer: {fileID: 0}
 --- !u!1 &2872755764080792232
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +236,37 @@ Transform:
   - {fileID: 5685564723198848237}
   m_Father: {fileID: 1825176754468469306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5501880935868832215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4351755552861139720}
+  m_Layer: 3
+  m_Name: AbilitiesContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4351755552861139720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5501880935868832215}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5685564723198848237}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5530686372127225297
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +278,6 @@ GameObject:
   - component: {fileID: 1825176754468469306}
   - component: {fileID: 5549191857454736999}
   - component: {fileID: 5611639533180922428}
-  - component: {fileID: 2574333786305621383}
   m_Layer: 3
   m_Name: Mech
   m_TagString: Mech
@@ -320,27 +346,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &2574333786305621383
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5530686372127225297}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6836882279293984211
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +483,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4351755552861139720}
   m_Father: {fileID: 2009113745242047107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6081950981244849145
@@ -493,3 +499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf1e6b4b6bba154f8835309622011d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilities: []
+  overloadChargeData: {fileID: 11400000, guid: 04b01c8852f11604a891bac361b587f9, type: 2}
+  overloadedFlashlightData: {fileID: 11400000, guid: 99b2eb4aa1f61db4cab66d51837bd310, type: 2}

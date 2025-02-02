@@ -79,9 +79,9 @@ public class InputManager : MonoBehaviour
     {
         inputActions.MechControls.Enable();
 
-        inputActions.MechControls.ExitMech.performed += i => onExitMech?.Invoke();
-        inputActions.MechControls.OverloadCharge.performed += i => onAbilityCharge?.Invoke();
-        inputActions.MechControls.OverloadFlashlight.performed += i => onAbilityFlashlight?.Invoke();
+        inputActions.MechControls.ExitMech.started += i => onExitMech?.Invoke();
+        inputActions.MechControls.OverloadCharge.started += i => onAbilityCharge?.Invoke();
+        inputActions.MechControls.OverloadFlashlight.started += i => onAbilityFlashlight?.Invoke();
 
     }
 
